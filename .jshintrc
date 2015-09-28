@@ -1,0 +1,8 @@
+{
+    "validthis": true,
+    "node": true,
+    "maxcomplexity": 3,
+    "maxdepth": 3,
+    "undef": true,
+    "unused": true
+}
