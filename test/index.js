@@ -1,4 +1,5 @@
 /*global describe, it*/
+'use strict';
 var File = require('vinyl');
 var assert = require('assert');
 var cwd = process.cwd() + '/test/fixtures';
