@@ -1,4 +1,4 @@
-angular.module('test', [])
+console.module('test', [])
 
     .directive('first', function() {
         return {
