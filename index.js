@@ -1,11 +1,13 @@
 'use strict';
 var es = require('event-stream');
 var gutil = require('gulp-util');
+var fs = require('fs');
 
 var NAME = 'gulp-ng-template-strings';
+var REXP = '(["\']?)templateUrl\\1?\s*:\s*(["\'])(\S+)\\2';
 
 function findUrls(contents) {
-    var templateUrls = /(["']?)templateUrl\1?\s*:\s*(["'])(\S+)\2/g;
+    var templateUrls = new RegExp(REXP, 'g');
     var urls = [];
     var match;
     while((match = templateUrls.exec(contents)) !== null) {
@@ -21,8 +23,12 @@ function buffer(file, cb) {
     if(urls.length === 0) {
         return cb(null, file);
     }
-    // TODO
-    file.contents = new Buffer(contents.replace('templateUrl', 'template'));
+    urls.forEach(function(url) {
+        var template = fs.readFileSync(file.base + url);
+        template = template.replace('\n', '');
+        contents = contents.replace(REXP, 'template: \'' + template + '\'');
+    });
+    file.contents = new Buffer(contents);
     cb(null, file);
 }
 
