@@ -29,12 +29,12 @@
   },
   "homepage": "https://github.com/devm33/gulp-ng-template-strings#readme",
   "devDependencies": {
-    "mocha": "^2.3.3"
+    "mocha": "^2.3.3",
+    "vinyl": "^1.0.0",
+    "vinyl-fs": "^2.1.0"
   },
   "dependencies": {
     "event-stream": "^3.3.1",
-    "gulp-util": "^3.0.6",
-    "vinyl": "^1.0.0",
-    "vinyl-fs": "^2.1.0"
+    "gulp-util": "^3.0.6"
   }
 }
