@@ -14,6 +14,6 @@ console.module('test', [])
 
 function second() {
     return {
-        templateUrl: 'templates/second.html'
+        'templateUrl': "templates/second.html"
     };
 }
