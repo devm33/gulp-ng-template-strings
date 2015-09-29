@@ -1,15 +1,43 @@
 /*global describe, it*/
-var assert = require('assert');
-var es = require('event-stream');
 var File = require('vinyl');
+var assert = require('assert');
+var cwd = process.cwd() + '/test/fixtures';
+var fs = require('fs');
 var templates = require('../');
+var vfs = require('vinyl-fs');
 
 describe('gulp-ng-template-strings', function() {
-    it('should inline template contents into js file', function() {
-        assert(false, 'TODO');
+    it('should inline template contents into js file', function(done) {
+        vfs.src('has-template-urls.js', {cwd:cwd})
+            .pipe(templates())
+            .on('data', function(file) {
+                assert.equal(
+                    file.contents.toString('utf8'),
+                    fs.readFileSync(cwd + '/expected/has-template-urls.js', 'utf8'));
+                done();
+            });
     });
 
-    it('should pass js without angular directives through unchanged', function() {
-        assert(false, 'TODO');
+    it('should pass js without template urls through unchanged', function(done) {
+        var path = 'no-template-urls.js';
+        vfs.src(path, {cwd:cwd})
+            .pipe(templates())
+            .on('data', function(file) {
+                assert.equal(
+                    file.contents.toString('utf8'),
+                    fs.readFileSync(cwd + '/' + path, 'utf8'));
+                done();
+            });
+    });
+
+    it('should emit an error when input is streaming', function(done) {
+        templates()
+            .on('error', function(err) {
+                assert(err);
+                done();
+            })
+            .write(new File({
+                contents: fs.createReadStream(cwd + '/has-template-urls.js')
+            }));
     });
 });
