@@ -1,7 +1,7 @@
 {
     "validthis": true,
     "node": true,
-    "maxcomplexity": 3,
+    "maxcomplexity": 4,
     "maxdepth": 3,
     "undef": true,
     "unused": true
