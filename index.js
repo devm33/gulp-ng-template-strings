@@ -4,16 +4,27 @@ var gutil = require('gulp-util');
 var fs = require('fs');
 
 var NAME = 'gulp-ng-template-strings';
-var REXP = '(["\']?)templateUrl\\1?\s*:\s*(["\'])(\S+)\\2';
+
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+function getRegexStr(url) {
+    if(!url) {
+        url = '\\S+';
+    } else {
+        url = escapeRegExp(url);
+    }
+    return '(["\']?)templateUrl\\1?\\s*:\\s*(["\'])(' + url + ')\\2';
+}
 
 function findUrls(contents) {
-    var templateUrls = new RegExp(REXP, 'g');
+    var templateUrls = new RegExp(getRegexStr(), 'g');
     var urls = [];
     var match;
     while((match = templateUrls.exec(contents)) !== null) {
         urls.push(match[3]);
     }
-    console.log('found matches', urls);
     return urls;
 }
 
@@ -23,10 +34,23 @@ function buffer(file, cb) {
     if(urls.length === 0) {
         return cb(null, file);
     }
+    console.log('found matches', urls);
+    // TODO there is 100% a better way to do this using streaming files
     urls.forEach(function(url) {
-        var template = fs.readFileSync(file.base + url);
-        template = template.replace('\n', '');
-        contents = contents.replace(REXP, 'template: \'' + template + '\'');
+        var template;
+        try {
+            template = fs.readFileSync(file.base + url).toString();
+        } catch(e) {
+            template = e.toString();
+        }
+        template = template.replace(/\s*\n\s*/g, '');
+        console.log('adding template', template);
+        console.log('matching', getRegexStr(url));
+        contents = contents.replace(getRegexStr(url), function(match) {
+            console.log('match', match);
+            return 'template: \'' + template + '\'';
+        });
+        console.log('updated contents', contents);
     });
     file.contents = new Buffer(contents);
     cb(null, file);
