@@ -9,17 +9,26 @@ function escapeRegExp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
 
-function getRegexStr(url) {
+function getTemplateRegex(url) {
     if(!url) {
-        url = '\\S+';
+        url = '[^"\']+'; // templateUrl is anything but quotes
     } else {
         url = escapeRegExp(url);
     }
-    return '(["\']?)templateUrl\\1?\\s*:\\s*(["\'])(' + url + ')\\2';
+    var regexStr = [
+        '(["\']?)', // optional quote around keyword, saved in group \1
+        'templateUrl', // keyword
+        '\\1', // match first quote if exists
+        '\\s*:\\s*', // colon surrounded by any whitespace (including newline)
+        '(["\'])', // one quote around url, saved in \2
+        '(', url, ')', // save the url in the third group
+        '\\2', // match quote around url
+    ].join('');
+    return new RegExp(regexStr, 'g');
 }
 
 function findUrls(contents) {
-    var templateUrls = new RegExp(getRegexStr(), 'g');
+    var templateUrls = getTemplateRegex();
     var urls = [];
     var match;
     while((match = templateUrls.exec(contents)) !== null) {
@@ -45,8 +54,8 @@ function buffer(file, cb) {
         }
         template = template.replace(/\s*\n\s*/g, '');
         console.log('adding template', template);
-        console.log('matching', getRegexStr(url));
-        contents = contents.replace(getRegexStr(url), function(match) {
+        console.log('matching', getTemplateRegex(url));
+        contents = contents.replace(getTemplateRegex(url), function(match) {
             console.log('match', match);
             return 'template: \'' + template + '\'';
         });
