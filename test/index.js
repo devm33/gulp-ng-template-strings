@@ -50,4 +50,13 @@ describe('gulp-ng-template-strings', function() {
         contents: fs.createReadStream(cwd + '/has-template-urls.js'),
       }));
   });
+
+  it('should pass through a null file', function(done) {
+    templates()
+      .on('data', function(file) {
+        assert(file.path, 'path');
+        done();
+      })
+      .write(new File({path: 'path'}));
+  });
 });
