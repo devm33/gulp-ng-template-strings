@@ -12,7 +12,7 @@
 Install with [npm](https://www.npmjs.com/package/gulp-ng-template-strings)
 
 ```
-npm install gulp-ng-template-strings
+npm i --save-dev gulp-ng-template-strings
 ```
 
 ## Example
