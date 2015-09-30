@@ -31,6 +31,16 @@ describe('gulp-ng-template-strings', function() {
             });
     });
 
+    it('should leave url in place when file does not exist', function(done) {
+        var contents = 'templateUrl: "file/does/not/exist"';
+        templates()
+            .on('data', function(file) {
+                assert.equal(file.contents.toString(), contents);
+                done();
+            })
+            .write(new File({contents: new Buffer(contents)}));
+    });
+
     it('should emit an error when input is streaming', function(done) {
         templates()
             .on('error', function(err) {
