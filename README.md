@@ -20,7 +20,7 @@ npm install gulp-ng-template-strings
 Simply pass the plugin js files containing `templateUrl` properties to have them
 replaced with `template` properties.
 
-** gulpfile.js **
+**gulpfile.js**
 
 ```js
 var ngTemplateStrings = require('gulp-ng-template-strings');
@@ -34,7 +34,7 @@ gulp.task('default', function() {
 
 > Input files
 
-** src/tab.js **
+**src/tab.js**
 
 ```js
 function tabDirective() {
@@ -44,7 +44,7 @@ function tabDirective() {
 }
 ```
 
-** templates/tab.html **
+**templates/tab.html**
 
 ```html
 <ul>
