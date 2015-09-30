@@ -48,11 +48,13 @@ function buffer(file, cb) {
         try {
             template = fs.readFileSync(file.base + url).toString();
         } catch(e) {
-            template = e.toString();
+            // do nothing when file does not exist
         }
-        template = template.replace(/\s*\n\s*/g, '');
-        contents = contents.replace(getTemplateRegex(url),
-                                    'template: \'' + template + '\'');
+        if(template) {
+            template = template.replace(/\s*\n\s*/g, '');
+            contents = contents.replace(getTemplateRegex(url),
+                                        'template: \'' + template + '\'');
+        }
     });
     file.contents = new Buffer(contents);
     cb(null, file);
