@@ -56,7 +56,7 @@ function tabDirective() {
 
 > Output file
 
-** dist/tab.js **
+**dist/tab.js**
 
 ```js
 function tabDirective() {
