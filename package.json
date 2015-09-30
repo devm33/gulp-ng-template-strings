@@ -4,7 +4,10 @@
   "description": "inline angular templates into directive definition objects",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --reporter spec",
+    "lint": "jshint index.js test && jscs index.js test",
+    "cover": "istanbul cover _mocha -- -R spec",
+    "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -29,6 +32,10 @@
   },
   "homepage": "https://github.com/devm33/gulp-ng-template-strings#readme",
   "devDependencies": {
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.3.21",
+    "jscs": "^2.2.1",
+    "jshint": "^2.8.0",
     "mocha": "^2.3.3",
     "vinyl": "^1.0.0",
     "vinyl-fs": "^2.1.0"
