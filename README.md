@@ -1,7 +1,6 @@
 # gulp-ng-template-strings
 
 [![Build Status](https://travis-ci.org/devm33/gulp-ng-template-strings.svg?branch=master)](https://travis-ci.org/devm33/gulp-ng-template-strings)
-
 [![Coverage Status](https://coveralls.io/repos/devm33/gulp-ng-template-strings/badge.svg?branch=master&service=github)](https://coveralls.io/github/devm33/gulp-ng-template-strings?branch=master)
 
 > Inline angular templates into directive definition objects
@@ -22,9 +21,10 @@ npm install gulp-ng-template-strings
 Simply pass the plugin js files containing `templateUrl` properties to have them
 replaced with `template` properties.
 
-**gulpfile.js**
+*gulpfile.js*
 
 ```js
+var gulp = require('gulp');
 var ngTemplateStrings = require('gulp-ng-template-strings');
 
 gulp.task('default', function() {
@@ -36,7 +36,7 @@ gulp.task('default', function() {
 
 > Input files
 
-**src/tab.js**
+*src/tab.js*
 
 ```js
 function tabDirective() {
@@ -46,7 +46,7 @@ function tabDirective() {
 }
 ```
 
-**templates/tab.html**
+*templates/tab.html*
 
 ```html
 <ul>
@@ -56,7 +56,7 @@ function tabDirective() {
 
 > Output file
 
-**dist/tab.js**
+*dist/tab.js*
 
 ```js
 function tabDirective() {
