@@ -43,8 +43,6 @@ function buffer(file, cb) {
     if(urls.length === 0) {
         return cb(null, file);
     }
-    console.log('found matches', urls);
-    // TODO there is 100% a better way to do this using streaming files
     urls.forEach(function(url) {
         var template;
         try {
@@ -53,13 +51,8 @@ function buffer(file, cb) {
             template = e.toString();
         }
         template = template.replace(/\s*\n\s*/g, '');
-        console.log('adding template', template);
-        console.log('matching', getTemplateRegex(url));
-        contents = contents.replace(getTemplateRegex(url), function(match) {
-            console.log('match', match);
-            return 'template: \'' + template + '\'';
-        });
-        console.log('updated contents', contents);
+        contents = contents.replace(getTemplateRegex(url),
+                                    'template: \'' + template + '\'');
     });
     file.contents = new Buffer(contents);
     cb(null, file);
