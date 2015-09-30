@@ -1,24 +1,15 @@
 # gulp-ng-template-strings
-**Inline angular templates into directive definition objects**
+> Inline angular templates into directive definition objects
 
 [![Build Status](https://travis-ci.org/devm33/gulp-ng-template-strings.svg?branch=master)](https://travis-ci.org/devm33/gulp-ng-template-strings)
 [![Coverage Status](https://coveralls.io/repos/devm33/gulp-ng-template-strings/badge.svg?branch=master&service=github)](https://coveralls.io/github/devm33/gulp-ng-template-strings?branch=master)
 [![npm version](https://badge.fury.io/js/gulp-ng-template-strings.svg)](http://badge.fury.io/js/gulp-ng-template-strings)
 
-<a href="#install">Install</a> |
-<a href="#example">Example</a>
-
-## Install
-
-Install with [npm](https://www.npmjs.com/package/gulp-ng-template-strings)
-
-```
-npm i --save-dev gulp-ng-template-strings
-```
+[![NPM](https://nodei.co/npm/gulp-ng-template-strings.png)](https://nodei.co/npm/gulp-ng-template-strings/)
 
 ## Example
 
-Simply pass the plugin js files containing `templateUrl` properties to have them
+Pass the plugin js files containing `templateUrl` properties to have them
 replaced with `template` properties.
 
 `gulpfile.js`
