@@ -34,7 +34,7 @@ gulp.task('default', function() {
 });
 ```
 
-> Input files
+### Input files
 
 *src/tab.js*
 
@@ -54,7 +54,7 @@ function tabDirective() {
 </ul>
 ```
 
-> Output file
+### Output file
 
 *dist/tab.js*
 
