@@ -2,6 +2,7 @@
 var es = require('event-stream');
 var gutil = require('gulp-util');
 var fs = require('fs');
+var path = require('path');
 var NAME = 'gulp-ng-template-strings';
 
 function escapeRegExp(str) {
@@ -36,18 +37,19 @@ function findUrls(contents) {
   return urls;
 }
 
-function buffer(file, cb) {
+function buffer(options, file, cb) {
   var contents = file.contents.toString();
   var urls = findUrls(contents);
+  var cwd = options.cwd || file.cwd || process.cwd();
   if (urls.length === 0) {
     return cb(null, file);
   }
   urls.forEach(function(url) {
     var template;
     try {
-      template = fs.readFileSync(file.base + url).toString();
+      template = fs.readFileSync(path.join(cwd, url)).toString();
     } catch (e) {
-      // Do nothing when file does not exist
+      gutil.log(NAME, gutil.colors.yellow('WARN'), 'unable to read', cwd, url);
     }
     if (template) {
       template = template.replace(/\s*\n\s*/g, '');
@@ -59,16 +61,17 @@ function buffer(file, cb) {
   cb(null, file);
 }
 
-function templates(file, cb) {
-  if (file.isBuffer()) {
-    return buffer(file, cb);
-  }
-  if (file.isStream()) {
-    return cb(new gutil.PluginError(NAME, 'Streaming not supported'));
-  }
-  return cb(null, file);
-}
-
-module.exports = function() {
+module.exports = function(options) {
+  options = options || {};
   return es.map(templates);
+
+  function templates(file, cb) {
+    if (file.isBuffer()) {
+      return buffer(options, file, cb);
+    }
+    if (file.isStream()) {
+      return cb(new gutil.PluginError(NAME, 'Streaming not supported'));
+    }
+    return cb(null, file);
+  }
 };
