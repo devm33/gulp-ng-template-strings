@@ -59,4 +59,16 @@ describe('gulp-ng-template-strings', function() {
       })
       .write(new File({path: 'path'}));
   });
+
+  it('should override the process.cwd', function(done) {
+    templates({cwd: 'test/fixtures/templates/'})
+      .on('data', function(file) {
+        assert(file.contents.toString(),
+               'template: \'<div><h1>First Template</h1></div>\'');
+        done();
+      })
+      .write(new File({
+        contents: new Buffer('templateUrl: "first.html"'),
+      }));
+  });
 });
