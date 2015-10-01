@@ -56,3 +56,20 @@ function tabDirective() {
     };
 }
 ```
+
+## Options
+
+All options can be passed on stream creation.
+
+```js
+.pipe(ngTemplateStrings(options))
+```
+
+### `cwd`
+
+By default the plugin looks for files based of the `file.cwd` of each file
+passed through. This option overrides that for all files passed to a stream.
+
+```js
+.pipe(ngTemplateStrings({cwd: 'root/of/templatesUrls/'}))
+```
