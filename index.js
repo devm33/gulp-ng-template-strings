@@ -40,7 +40,7 @@ function findUrls(contents) {
 function buffer(options, file, cb) {
   var contents = file.contents.toString();
   var urls = findUrls(contents);
-  var cwd = options.cwd || file.cwd || process.cwd();
+  var cwd = options.cwd || file.cwd;
   if (urls.length === 0) {
     return cb(null, file);
   }
