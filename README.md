@@ -3,8 +3,15 @@
 
 [![Build Status](https://travis-ci.org/devm33/gulp-ng-template-strings.svg?branch=master)](https://travis-ci.org/devm33/gulp-ng-template-strings)
 [![Coverage Status](https://coveralls.io/repos/devm33/gulp-ng-template-strings/badge.svg?branch=master&service=github)](https://coveralls.io/github/devm33/gulp-ng-template-strings?branch=master)
+[![npm version](https://badge.fury.io/js/gulp-ng-template-strings.svg)](http://badge.fury.io/js/gulp-ng-template-strings)
 
-[![NPM](https://nodei.co/npm/gulp-ng-template-strings.png)](https://nodei.co/npm/gulp-ng-template-strings/)
+[Install](#install) | [Example](#example) | [API](#api)
+
+## Install
+
+```
+npm i --save-dev gulp-ng-template-strings
+```
 
 ## Example
 
@@ -56,7 +63,7 @@ function tabDirective() {
 }
 ```
 
-## Options
+## API
 
 All options can be passed on stream creation.
 
