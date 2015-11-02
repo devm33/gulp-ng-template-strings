@@ -52,7 +52,7 @@ function minifyTemplate(template, options) {
   } else {
     template = minify(template, options);
   }
-  return template;
+  return template.replace(/'/g, '\\\'');
 }
 
 function buffer(options, file, cb) {
