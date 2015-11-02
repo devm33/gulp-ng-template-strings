@@ -93,11 +93,13 @@ ngTemplateStrings({minify: {collapseWhitespace: false}})
 By default we use the following options:
 
 ```js
-removeComments: true, // remove html comments
-removeCommentsFromCDATA: true, // removes comments from inline JS & CSS
-collapseWhitespace: true, // collapse whitespace in text nodes
-caseSensitive: true // preserve case in attributes
-// all other options use html-minifier's default, false.
+{
+  removeComments: true, // remove html comments
+  removeCommentsFromCDATA: true, // removes comments from inline JS & CSS
+  collapseWhitespace: true, // collapse whitespace in text nodes
+  caseSensitive: true // preserve case in attributes
+  // all other options use html-minifier's default, false.
+}
 ```
 
 You can also disable minification altogether by passing:
