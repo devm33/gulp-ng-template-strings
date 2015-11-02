@@ -51,6 +51,17 @@ describe('gulp-ng-template-strings', function() {
       .write(new File({contents: new Buffer(contents)}));
   });
 
+  it('should escape single quotes in template', function(done) {
+    var contents = 'templateUrl: "templates/singlequotes.html"';
+    var expected = 'template: \'<a ng-click="send(\\\'test\\\')">Click</a>\'';
+    templates()
+      .on('data', function(file) {
+        assert.equal(file.contents.toString('utf8'), expected);
+        done();
+      })
+      .write(new File({contents: new Buffer(contents), cwd: cwd}));
+  });
+
   it('should emit an error when input is streaming', function(done) {
     templates()
       .on('error', function(err) {
