@@ -1,6 +1,6 @@
 {
   "name": "gulp-ng-template-strings",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "inline angular templates into directive definition objects",
   "main": "index.js",
   "scripts": {
