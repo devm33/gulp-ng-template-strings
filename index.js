@@ -5,14 +5,14 @@ var fs = require('fs');
 var path = require('path');
 var minify = require('html-minifier').minify;
 var _defaults = require('lodash').defaults;
-var NAME = 'gulp-ng-template-strings';
 
+var NAME = 'gulp-ng-template-strings';
 var DEFAULT_MINIFY_OPTIONS = {
   removeComments: true,
   removeCommentsFromCDATA: true,
   collapseWhitespace: true,
-  caseSensitive: true
-}
+  caseSensitive: true,
+};
 
 function escapeRegExp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
@@ -47,23 +47,11 @@ function findUrls(contents) {
 }
 
 function buffer(options, file, cb) {
-  var skipMinification = false;
-  var minifyOptions = {};
   var contents = file.contents.toString();
   var urls = findUrls(contents);
   var cwd = options.cwd || file.cwd;
-  switch (options.minify) {
-    case false:
-      // if options.minify is explictly false, skip minification altogether
-      skipMinification = true;
-      break;
-    case undefined:
-      // if options.minify is undefined, use default options
-      minifyOptions = DEFAULT_MINIFY_OPTIONS;
-      break;
-    default:
-      // otherwise combine passed options with default set
-      minifyOptions = _defaults(options.minify, DEFAULT_MINIFY_OPTIONS);
+  if (options.minify !== false) {
+    options.minify = _defaults({}, options.minify, DEFAULT_MINIFY_OPTIONS);
   }
   if (urls.length === 0) {
     return cb(null, file);
@@ -76,8 +64,8 @@ function buffer(options, file, cb) {
       gutil.log(NAME, gutil.colors.yellow('WARN'), 'unable to read', cwd, url);
     }
     if (template) {
-      if (!skipMinification) {
-        template = minify(template, minifyOptions);
+      if (options.minify) {
+        template = minify(template, options.minify);
       }
       contents = contents.replace(getTemplateRegex(url),
                                   'template: \'' + template + '\'');
