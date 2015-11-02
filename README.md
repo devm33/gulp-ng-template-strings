@@ -79,3 +79,29 @@ passed through. This option overrides that for all files passed to a stream.
 ```js
 ngTemplateStrings({cwd: 'root/of/templatesUrls/'})
 ```
+
+### `minify`
+
+Your html strings will be minified with
+[html-minifier](https://github.com/kangax/html-minifier). You can override our
+default configuration by passing a minify object in the settings object.
+
+```js
+ngTemplateStrings({minify: {collapseWhitespace: false}})
+```
+
+By default we use the following options:
+
+```js
+removeComments: true, // remove html comments
+removeCommentsFromCDATA: true, // removes comments from inline JS & CSS
+collapseWhitespace: true, // collapse whitespace in text nodes
+caseSensitive: true // preserve case in attributes
+// all other options use html-minifier's default, false.
+```
+
+You can also disable minification altogether by passing:
+
+```js
+ngTemplateStrings({minify: false})
+```

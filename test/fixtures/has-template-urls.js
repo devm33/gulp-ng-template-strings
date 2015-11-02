@@ -17,3 +17,9 @@ function second() {
         'templateUrl': "templates/second.html"
     };
 }
+
+function third() {
+    return {
+        'templateUrl': "templates/third.html"
+    };
+}
