@@ -46,6 +46,15 @@ function findUrls(contents) {
   return urls;
 }
 
+function minifyTemplate(template, options) {
+  if (options === false) {
+    template = template.replace(/\s*\n\s*/g, ' ');
+  } else {
+    template = minify(template, options);
+  }
+  return template;
+}
+
 function buffer(options, file, cb) {
   var contents = file.contents.toString();
   var urls = findUrls(contents);
@@ -64,9 +73,7 @@ function buffer(options, file, cb) {
       gutil.log(NAME, gutil.colors.yellow('WARN'), 'unable to read', cwd, url);
     }
     if (template) {
-      if (options.minify) {
-        template = minify(template, options.minify);
-      }
+      template = minifyTemplate(template, options.minify);
       contents = contents.replace(getTemplateRegex(url),
                                   'template: \'' + template + '\'');
     }
