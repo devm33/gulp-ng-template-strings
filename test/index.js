@@ -18,6 +18,17 @@ describe('gulp-ng-template-strings', function() {
       });
   });
 
+  it('should inline templates but not minify html', function(done) {
+    vfs.src('has-template-urls.js', {cwd: cwd})
+      .pipe(templates({minify: false}))
+      .on('data', function(file) {
+        assert.equal(
+          file.contents.toString('utf8'),
+          fs.readFileSync(cwd + '/expected/unminified.js', 'utf8'));
+        done();
+      });
+  });
+
   it('should pass js without template urls through unchanged', function(done) {
     var path = 'no-template-urls.js';
     vfs.src(path, {cwd: cwd})
